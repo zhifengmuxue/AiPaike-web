@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <a-input-search
-      v-model:value="fileName"
-      placeholder="input file name here"
-      size="large"
-      @search="exportFile"
-    >
-      <template #enterButton>
-        <a-button>Export</a-button>
-      </template>
-    </a-input-search>
-  </div>
+  <a-input-search
+    v-model:value="fileName"
+    placeholder="input file name here"
+    size="large"
+    @search="exportFile"
+  >
+    <template #enterButton>
+      <a-button>Export</a-button>
+    </template>
+  </a-input-search>
 </template>
 
 <script setup lang="ts">
@@ -45,5 +43,4 @@ const exportFile = async () => {
     console.log('请输入文件名');
   }
 };
-
 </script>

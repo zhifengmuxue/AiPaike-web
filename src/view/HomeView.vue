@@ -8,8 +8,8 @@
         <span>仪表盘</span>
         </a-menu-item>
         <a-menu-item key="2" @click="navigateTo('export')">
-        <pie-chart-outlined />
-        <span>导出文件</span>
+        <TableOutlined />
+        <span>课表展示</span>
         </a-menu-item>
         <a-menu-item key="3" @click="navigateTo('chat')">
         <RadarChartOutlined />
@@ -51,7 +51,7 @@
 
 <script lang="ts" setup>
 import {
-PieChartOutlined,
+TableOutlined,
 DesktopOutlined,
 RadarChartOutlined,
 TeamOutlined,

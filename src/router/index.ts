@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../view/HomeView.vue';
-import ExportView from '../component/Export.vue';
+import ExportView from '../component/Class.vue';
 import Login from '../view/LoginView.vue';
 import Dashbroad from '../component/Dashbroad.vue';
 import Chat from '../component/Chat.vue';
