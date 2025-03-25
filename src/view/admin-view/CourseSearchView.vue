@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import ScheduleTable from './ScheduleTable.vue';
+import ScheduleTable from '../../component/ScheduleTable.vue';
 
 // 测试数据
 const scheduleData = ref([

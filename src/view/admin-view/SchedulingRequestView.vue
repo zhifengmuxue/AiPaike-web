@@ -55,18 +55,21 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { Select } from 'ant-design-vue';
 
-const selectedCourses = ref([]);
-const selectedStagoery = ref([]);
-const week = ref('');
-const day = ref('');
-const startSlot = ref('');
-const endSlot = ref('');
-const courses = ref([]);
+interface Course {
+    id: number;
+    name: string;
+}
+
+const selectedCourses = ref < number[] > ([]);
+const selectedStagoery = ref < string[] > ([]);
+const week = ref < number | string > ('');
+const day = ref < number | string > ('');
+const startSlot = ref < number | string > ('');
+const endSlot = ref < number | string > ('');
+const courses = ref < Course[] > ([]);
 const days = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 
 onMounted(async () => {

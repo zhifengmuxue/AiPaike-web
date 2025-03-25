@@ -131,7 +131,9 @@ const getCoursesForTime = (day: string, timeIndex: number): Course[] => {
   background-color: #ccc;
 }
 
-.header-cell, .time-cell, .schedule-cell {
+.header-cell,
+.time-cell,
+.schedule-cell {
   background-color: #fff;
   padding: 8px;
   text-align: center;
@@ -155,8 +157,10 @@ const getCoursesForTime = (day: string, timeIndex: number): Course[] => {
 }
 
 .break {
-  grid-column: span 7; /* 合并后面七个列 */
-  background-color: #d3d3d3; /* 设置背景颜色为灰色 */
+  grid-column: span 7;
+  /* 合并后面七个列 */
+  background-color: #d3d3d3;
+  /* 设置背景颜色为灰色 */
   border: 1px solid #ccc;
   margin: 2px;
   padding: 4px;
@@ -164,7 +168,7 @@ const getCoursesForTime = (day: string, timeIndex: number): Course[] => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px; /* 设置午休行的高度 */
+  height: 40px;
+  /* 设置午休行的高度 */
 }
-
 </style>
