@@ -4,7 +4,7 @@ import ExportView from '../component/Class.vue';
 import Login from '../view/LoginView.vue';
 import Dashbroad from '../component/Dashbroad.vue';
 import Chat from '../component/Chat.vue';
-
+import Option from '../component/Option.vue';
 const routes = [
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
@@ -17,6 +17,7 @@ const routes = [
       { path: 'dashboard', component: Dashbroad },
       { path: 'export', component: ExportView },
       { path: 'chat', component: Chat },
+      { path: 'option', component: Option },
     ],
   },
 ];

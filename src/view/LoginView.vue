@@ -1,3 +1,51 @@
+<template>
+  <div class="login-container">
+    <div class="login-form">
+      <h1 class="login-title">AiPaike 登录</h1>
+      <a-form
+        :model="formState"
+        name="basic"
+        @finish="onFinish"
+        @finishFailed="onFinishFailed"
+        :labelCol="{ span: 8 }"
+        :wrapperCol="{ span: 18 }"
+      >
+        <a-form-item
+          label="用户名"
+          name="username"
+          :rules="[{ required: true, message: '请输入用户名！' }]"
+        >
+          <a-input v-model:value="formState.username" />
+        </a-form-item>
+
+        <a-form-item
+          label="密码"
+          name="password"
+          :rules="[{ required: true, message: '请输入密码！' }]"
+        >
+          <a-input-password v-model:value="formState.password" />
+        </a-form-item>
+
+        <a-form-item
+          label="角色"
+          name="role"
+          :rules="[{ required: true, message: '请选择角色！' }]"
+        >
+          <a-select v-model:value="formState.role" placeholder="请选择角色">
+            <a-select-option value="student">学生</a-select-option>
+            <a-select-option value="teacher">老师</a-select-option>
+            <a-select-option value="admin">管理员</a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item :wrapperCol="{ offset: 2, span: 22 }">
+          <a-button type="primary" html-type="submit" block>登录</a-button>
+        </a-form-item>
+      </a-form>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { reactive } from 'vue';
 import axiosInstance from '../utils/axiosInstance';
@@ -8,6 +56,7 @@ const router = useRouter();
 const formState = reactive({
   username: '',
   password: '',
+  role: 'admin',
   remember: true,
 });
 
@@ -19,6 +68,7 @@ const onFinish = async () => {
       params: {
         username: formState.username,
         password: formState.password,
+        role: formState.role,
       }
     });
     if (response.data.code === 200) {
@@ -38,44 +88,6 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 </script>
-
-<template>
-  <div class="login-container">
-    <div class="login-form">
-      <h1 class="login-title">AiPaike 登录</h1>
-      <a-form
-        :model="formState"
-        name="basic"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-      >
-        <a-form-item
-          label="用户名"
-          name="username"
-          :rules="[{ required: true, message: '请输入用户名！' }]"
-        >
-          <a-input v-model:value="formState.username" />
-        </a-form-item>
-
-        <a-form-item
-          label="密码"
-          name="password"
-          :rules="[{ required: true, message: '请输入密码！' }]"
-        >
-          <a-input-password v-model:value="formState.password" />
-        </a-form-item>
-
-        <a-form-item name="remember">
-          <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
-        </a-form-item>
-
-        <a-form-item>
-          <a-button type="primary" html-type="submit" block>登录</a-button>
-        </a-form-item>
-      </a-form>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .login-container {
