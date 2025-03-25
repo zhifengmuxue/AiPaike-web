@@ -2,35 +2,17 @@
   <div class="login-container">
     <div class="login-form">
       <h1 class="login-title">AiPaike 登录</h1>
-      <a-form
-        :model="formState"
-        name="basic"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-        :labelCol="{ span: 8 }"
-        :wrapperCol="{ span: 18 }"
-      >
-        <a-form-item
-          label="用户名"
-          name="username"
-          :rules="[{ required: true, message: '请输入用户名！' }]"
-        >
+      <a-form :model="formState" name="basic" @finish="onFinish" @finishFailed="onFinishFailed" :labelCol="{ span: 8 }"
+        :wrapperCol="{ span: 16 }">
+        <a-form-item label="用户名" name="username" :rules="[{ required: true, message: '请输入用户名！' }]">
           <a-input v-model:value="formState.username" />
         </a-form-item>
 
-        <a-form-item
-          label="密码"
-          name="password"
-          :rules="[{ required: true, message: '请输入密码！' }]"
-        >
+        <a-form-item label="密码" name="password" :rules="[{ required: true, message: '请输入密码！' }]">
           <a-input-password v-model:value="formState.password" />
         </a-form-item>
 
-        <a-form-item
-          label="角色"
-          name="role"
-          :rules="[{ required: true, message: '请选择角色！' }]"
-        >
+        <a-form-item label="角色" name="role" :rules="[{ required: true, message: '请选择角色！' }]">
           <a-select v-model:value="formState.role" placeholder="请选择角色">
             <a-select-option value="student">学生</a-select-option>
             <a-select-option value="teacher">老师</a-select-option>
@@ -50,6 +32,7 @@
 import { reactive } from 'vue';
 import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'vue-router';
+import { message } from 'ant-design-vue';
 
 const router = useRouter();
 
@@ -74,12 +57,13 @@ const onFinish = async () => {
     if (response.data.code === 200) {
       console.log('登录成功:', response.data.data.token);
       sessionStorage.setItem('token', response.data.data.token);
-      console.log('当前的axios配置' , axiosInstance.defaults);
+      console.log('当前的axios配置', axiosInstance.defaults);
       router.push('/home/dashboard');
     } else {
-      console.log('登录失败:', response.data.msg);
+      message.error(`登录失败: ${response.data.msg}`);
     }
   } catch (error) {
+    message.error('请求错误，请稍后再试');
     console.error('请求错误:', error);
   }
 };
@@ -97,6 +81,7 @@ const onFinishFailed = (errorInfo: any) => {
   height: 100vh;
   background-color: #f0f2f5;
 }
+
 .login-form {
   width: 300px;
   padding: 2rem;
@@ -105,6 +90,7 @@ const onFinishFailed = (errorInfo: any) => {
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
 .login-title {
   text-align: center;
   margin-bottom: 1.5rem;

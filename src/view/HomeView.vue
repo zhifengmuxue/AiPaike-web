@@ -29,8 +29,8 @@
                 </div>
                 <a-button type="primary" @click="logout" style="margin: 16px;">登出</a-button>
             </a-layout-header>
-            <a-layout-content style="margin: 0 0px">
-                <div :style="{ padding: '24px', background: '#fff', minHeight: '100%' }">
+            <a-layout-content class="content-layout">
+                <div class="content-container">
                     <router-view />
                 </div>
             </a-layout-content>
@@ -88,5 +88,19 @@ onMounted(() => {
 
 [data-theme='light'] .site-layout .site-layout-background {
     background: #f8f2f2;
+}
+
+.content-layout {
+    overflow: hidden;
+    height: calc(100vh - 64px);
+    /* 减去 header 的高度 */
+}
+
+.content-container {
+    padding: 24px;
+    background: #fff;
+    height: 100%;
+    overflow-y: auto;
+    /* 仅右边内容部分支持滚动 */
 }
 </style>

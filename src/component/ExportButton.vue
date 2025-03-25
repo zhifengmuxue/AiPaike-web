@@ -1,12 +1,12 @@
 <template>
   <a-input-search
     v-model:value="fileName"
-    placeholder="input file name here"
+    placeholder="输入想要导出的文件名"
     size="large"
     @search="exportFile"
   >
     <template #enterButton>
-      <a-button>Export</a-button>
+      <a-button>导出</a-button>
     </template>
   </a-input-search>
 </template>

@@ -1,24 +1,23 @@
 <template>
   <div>
     <!-- 直观的课程表 -->
-    <div class="schedule-grid">
-      <div class="header-cell"></div>
-      <div class="header-cell" v-for="day in days" :key="day">{{ day }}</div>
-      <div v-for="(time, index) in times" :key="index" class="time-row">
-        <div class="time-cell">{{ time }}</div>
-        <div v-if="time === '12:00 - 13:30'" class="break">午休</div>
-        <div v-else-if="time === '16:30 - 18:00'" class="break">晚休</div>
-        <div v-else v-for="day in days" :key="day" class="schedule-cell">
-          <div v-for="course in getCoursesForTime(day, index)" :key="course.courseName" class="course">
-            {{ course.courseName }} {{ course.teacherName }} <br>
-            {{ course.roomBuilding }}-{{ course.roomFloor }}-{{ course.classroomName }}
+    <div class="schedule-grid-container">
+      <div class="schedule-grid">
+        <div class="header-cell"></div>
+        <div class="header-cell" v-for="day in days" :key="day">{{ day }}</div>
+        <div v-for="(time, index) in times" :key="index" class="time-row">
+          <div class="time-cell">{{ time }}</div>
+          <div v-if="time === '12:00 - 13:30'" class="break">午休</div>
+          <div v-else-if="time === '16:30 - 18:00'" class="break">晚休</div>
+          <div v-else v-for="day in days" :key="day" class="schedule-cell">
+            <div v-for="course in getCoursesForTime(day, index)" :key="course.courseName" class="course">
+              {{ course.courseName }} {{ course.teacherName }} <br>
+              {{ course.roomBuilding }}-{{ course.roomFloor }}-{{ course.classroomName }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- 表格形式的课程表 -->
-    <a-table class="schedule-table" :columns="columns" :dataSource="scheduleData" rowKey="courseName" />
   </div>
 </template>
 
@@ -32,58 +31,7 @@ const props = defineProps({
   }
 });
 
-const columns = [
-  {
-    title: '星期几',
-    dataIndex: 'weekDay',
-    key: 'weekDay'
-  },
-  {
-    title: '开始节次',
-    dataIndex: 'slotStart',
-    key: 'slotStart'
-  },
-  {
-    title: '结束节次',
-    dataIndex: 'slotEnd',
-    key: 'slotEnd'
-  },
-  {
-    title: '开始周次',
-    dataIndex: 'weekBegin',
-    key: 'weekBegin'
-  },
-  {
-    title: '结束周次',
-    dataIndex: 'weekEnd',
-    key: 'weekEnd'
-  },
-  {
-    title: '课程名称',
-    dataIndex: 'courseName',
-    key: 'courseName'
-  },
-  {
-    title: '教师名字',
-    dataIndex: 'teacherName',
-    key: 'teacherName'
-  },
-  {
-    title: '教室名字',
-    dataIndex: 'classroomName',
-    key: 'classroomName'
-  },
-  {
-    title: '教学楼',
-    dataIndex: 'roomBuilding',
-    key: 'roomBuilding'
-  },
-  {
-    title: '楼层',
-    dataIndex: 'roomFloor',
-    key: 'roomFloor'
-  }
-];
+
 
 const days = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 const times = [
@@ -117,9 +65,9 @@ const getCoursesForTime = (day: string, timeIndex: number): Course[] => {
 </script>
 
 <style scoped>
-.schedule-table {
-  margin: 130px auto;
-  max-width: 80%;
+.schedule-grid-container {
+  display: flex;
+  justify-content: center;
 }
 
 .schedule-grid {
@@ -129,6 +77,8 @@ const getCoursesForTime = (day: string, timeIndex: number): Course[] => {
   grid-template-columns: repeat(8, 1fr);
   gap: 1px;
   background-color: #ccc;
+  transform: scale(0.8); /* 缩小表格整体大小 */
+  transform-origin: top left; /* 确保缩放从左上角开始 */
 }
 
 .header-cell,
@@ -169,6 +119,5 @@ const getCoursesForTime = (day: string, timeIndex: number): Course[] => {
   justify-content: center;
   align-items: center;
   height: 40px;
-  /* 设置午休行的高度 */
 }
 </style>
