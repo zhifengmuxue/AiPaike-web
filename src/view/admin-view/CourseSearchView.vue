@@ -10,12 +10,7 @@
       <a-form layout="vertical" class="centered-form">
         <h2>根据班级查找课表</h2>
         <a-form-item>
-          <a-input-search
-            v-model:value="className"
-            placeholder="请输入班级"
-            size="large"
-            @search="searchSchedule"
-          >
+          <a-input-search v-model:value="className" placeholder="请输入班级" size="large" @search="fetchSchedule">
             <template #enterButton>
               <a-button>搜索</a-button>
             </template>
@@ -37,13 +32,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type Ref, watch } from 'vue';
 import ScheduleTable from '../../component/ScheduleTable.vue';
 import { message } from 'ant-design-vue';
 import ExportButton from '../../component/ExportButton.vue';
+import axiosInstance from '../../utils/axiosInstance';
 
 // 测试数据
 const scheduleData = ref([
+  {
+    "weekDay": 5,
+    "slotStart": 7,
+    "slotEnd": 8,
+    "weekBegin": 10,
+    "weekEnd": 18,
+    "courseName": "教师资格证综合训练",
+    "teacherName": "郭科伟",
+    "classroomName": "JDGC3#303-智能仿真实训室",
+    "roomBuilding": "机电工程实训中心",
+    "roomFloor": 3,
+    "className": "22早期教育1班"
+  },
   {
     weekDay: 1,
     slotStart: 1,
@@ -76,13 +85,38 @@ const className = ref('');
 const currentWeek = ref(1);
 const filteredScheduleData = ref(scheduleData.value);
 
-const searchSchedule = () => {
+const fetchSchedule = async () => {
   if (className.value.trim() === '') {
     message.warning('请输入班级名称');
     return;
   }
 
-  filteredScheduleData.value = scheduleData.value.filter(course => course.className.includes(className.value.trim()));
+  try {
+    const response = await axiosInstance.get('/getSchedule', {
+      params: { className: className.value.trim() }
+    });
+    scheduleData.value = response.data;
+
+    // 根据当前周次过滤课表数据
+    filteredScheduleData.value = scheduleData.value.filter(course => {
+      return currentWeek.value >= course.weekBegin && currentWeek.value <= course.weekEnd;
+    });
+
+    message.success('课表加载成功');
+  } catch (error) {
+    console.error('获取课表失败:', error);
+    message.error('获取课表失败，请稍后再试');
+  }
+};
+
+watch(currentWeek, () => {
+  applyWeekFilter();
+});
+// 根据当前周次过滤课表数据
+const applyWeekFilter = () => {
+  filteredScheduleData.value = scheduleData.value.filter(course => {
+    return currentWeek.value >= course.weekBegin && currentWeek.value <= course.weekEnd;
+  });
 };
 
 const columns = [
@@ -137,6 +171,7 @@ const columns = [
     key: 'roomFloor'
   }
 ];
+
 </script>
 
 <style scoped>
