@@ -7,9 +7,7 @@
         <div class="header-cell" v-for="day in days" :key="day">{{ day }}</div>
         <div v-for="(time, index) in times" :key="index" class="time-row">
           <div class="time-cell">{{ time }}</div>
-          <div v-if="time === '12:00 - 13:30'" class="break">午休</div>
-          <div v-else-if="time === '16:30 - 18:00'" class="break">晚休</div>
-          <div v-else v-for="day in days" :key="day" class="schedule-cell">
+          <div v-for="day in days" :key="day" class="schedule-cell">
             <div v-for="course in getCoursesForTime(day, index)" :key="course.courseName" class="course">
               {{ course.courseName }} {{ course.teacherName }} <br>
               {{ course.roomBuilding }}-{{ course.roomFloor }}-{{ course.classroomName }}
@@ -36,9 +34,7 @@ const props = defineProps({
 const days = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 const times = [
   '08:10 - 08:50', '08:55 - 09:35', '09:50 - 10:30', '10:35 - 11:15', '11:20 - 12:00',
-  '12:00 - 13:30', // 午休时间
   '13:30 - 14:10', '14:15 - 14:55', '15:05 - 15:45', '15:50 - 16:30',
-  '16:30 - 18:00', // 晚休时间
   '18:00 - 18:40', '18:45 - 19:25', '19:30 - 20:10'
 ];
 

@@ -39,47 +39,20 @@ import ExportButton from '../../component/ExportButton.vue';
 import axiosInstance from '../../utils/axiosInstance';
 
 // 测试数据
-const scheduleData = ref([
-  {
-    "weekDay": 5,
-    "slotStart": 7,
-    "slotEnd": 8,
-    "weekBegin": 10,
-    "weekEnd": 18,
-    "courseName": "教师资格证综合训练",
-    "teacherName": "郭科伟",
-    "classroomName": "JDGC3#303-智能仿真实训室",
-    "roomBuilding": "机电工程实训中心",
-    "roomFloor": 3,
-    "className": "22早期教育1班"
-  },
-  {
-    weekDay: 1,
-    slotStart: 1,
-    slotEnd: 2,
-    weekBegin: 1,
-    weekEnd: 16,
-    courseName: '数学',
-    teacherName: '张老师',
-    classroomName: '101',
-    roomBuilding: 'A',
-    roomFloor: 1,
-    className: '一班'
-  },
-  {
-    weekDay: 2,
-    slotStart: 3,
-    slotEnd: 4,
-    weekBegin: 1,
-    weekEnd: 16,
-    courseName: '英语',
-    teacherName: '李老师',
-    classroomName: '102',
-    roomBuilding: 'B',
-    roomFloor: 2,
-    className: '二班'
-  }
-]);
+interface Course {
+  weekDay: string;
+  slotStart: number;
+  slotEnd: number;
+  weekBegin: number;
+  weekEnd: number;
+  courseName: string;
+  teacherName: string;
+  classroomName: string;
+  roomBuilding: string;
+  roomFloor: string;
+}
+
+const scheduleData = ref<Course[]>([]);
 
 const className = ref('');
 const currentWeek = ref(1);
